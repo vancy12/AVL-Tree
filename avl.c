@@ -172,22 +172,40 @@ node* removeNode(node* AVLroot, int remove, node* AVL){
 
     if(remove < AVLroot->MIS){
         removeNode(AVLroot->left, remove, AVL);
-        return AVLroot;
+        return AVL;
     }
     else if(remove > AVLroot->MIS){
         removeNode(AVLroot->right, remove, AVL);
-        return AVLroot;
+        return AVL;
     }
+
     // if node has 1 child
     if(AVLroot->right == NULL){
         node* temp = AVLroot->left;
+        if(AVLroot->parent)
+            AVLroot->parent->left = temp;
+        else
+            AVL = temp;
+
+
+        if(temp)
+            temp->parent = AVLroot->parent;
+
         free(AVLroot);
-        return temp;
+        return AVL;
     }
+
     else if(AVLroot->left == NULL){
         node* temp = AVLroot->right;
+        if(AVLroot->parent)
+            AVLroot->parent->right = temp;
+        else
+            AVL = temp;
+
+        if(temp)
+            temp->parent = AVLroot->parent;
         free(AVLroot);
-        return temp;
+        return AVL;
     }
     
     // if node has 2 children
@@ -212,7 +230,7 @@ node* removeNode(node* AVLroot, int remove, node* AVL){
     calculateBalance(&succParent);
     balanceTree(&succParent , &AVL);
 
-    return AVLroot;
+    return AVL;
 
 }
 
