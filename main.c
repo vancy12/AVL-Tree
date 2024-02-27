@@ -29,7 +29,7 @@ int main(){
             case 2:
                 printf("Enter MIS to remove: ");
                 scanf("%d", &MIS);
-                AVL = removeNode(AVL, MIS);
+                AVL = removeNode(AVL, MIS, AVL);
                 break;
             case 3:
                 traverse(AVL);
